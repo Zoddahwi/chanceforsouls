@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/chanceforsouls.github.io/static/css/main.555799d2.css",
-    "main.js": "/chanceforsouls.github.io/static/js/main.f2de41e2.js",
-    "static/js/507.cfe37fc3.chunk.js": "/chanceforsouls.github.io/static/js/507.cfe37fc3.chunk.js",
-    "static/js/355.8cd73ac1.chunk.js": "/chanceforsouls.github.io/static/js/355.8cd73ac1.chunk.js",
-    "static/js/562.04d585f7.chunk.js": "/chanceforsouls.github.io/static/js/562.04d585f7.chunk.js",
-    "index.html": "/chanceforsouls.github.io/index.html",
-    "main.555799d2.css.map": "/chanceforsouls.github.io/static/css/main.555799d2.css.map",
-    "main.f2de41e2.js.map": "/chanceforsouls.github.io/static/js/main.f2de41e2.js.map",
-    "507.cfe37fc3.chunk.js.map": "/chanceforsouls.github.io/static/js/507.cfe37fc3.chunk.js.map",
-    "355.8cd73ac1.chunk.js.map": "/chanceforsouls.github.io/static/js/355.8cd73ac1.chunk.js.map",
-    "562.04d585f7.chunk.js.map": "/chanceforsouls.github.io/static/js/562.04d585f7.chunk.js.map"
+    "main.css": "/static/css/main.555799d2.css",
+    "main.js": "/static/js/main.cf166c16.js",
+    "static/js/507.cfe37fc3.chunk.js": "/static/js/507.cfe37fc3.chunk.js",
+    "static/js/355.8cd73ac1.chunk.js": "/static/js/355.8cd73ac1.chunk.js",
+    "static/js/562.04d585f7.chunk.js": "/static/js/562.04d585f7.chunk.js",
+    "index.html": "/index.html",
+    "main.555799d2.css.map": "/static/css/main.555799d2.css.map",
+    "main.cf166c16.js.map": "/static/js/main.cf166c16.js.map",
+    "507.cfe37fc3.chunk.js.map": "/static/js/507.cfe37fc3.chunk.js.map",
+    "355.8cd73ac1.chunk.js.map": "/static/js/355.8cd73ac1.chunk.js.map",
+    "562.04d585f7.chunk.js.map": "/static/js/562.04d585f7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.555799d2.css",
-    "static/js/main.f2de41e2.js"
+    "static/js/main.cf166c16.js"
   ]
 }
