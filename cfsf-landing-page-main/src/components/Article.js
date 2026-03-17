@@ -30,19 +30,19 @@ const Article = () => {
             <div className='art-item' onClick={handleBridgeRehabClick} style={{ cursor: 'pointer' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #2f931d 0%, #1d5e14 100%)',
-                height: '300px',
+                height: '240px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
-                fontSize: '3rem',
+                fontSize: '2.8rem',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                padding: '2rem',
+                padding: '1.5rem',
                 borderRadius: '10px 10px 0 0'
               }}>
                 🌉🏥<br />
-                <span style={{ fontSize: '1.3rem' }}>Building Hope & Infrastructure</span>
+                <span style={{ fontSize: '1.2rem' }}>Building Hope & Infrastructure</span>
               </div>
               <div className='a-item'>
                 <p className='author'>Announcement • Upcoming Projects 2025</p>
@@ -58,19 +58,19 @@ const Article = () => {
             <div className='art-item' onClick={handleWorkshopClick} style={{ cursor: 'pointer' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #2f931d 0%, #1d5e14 100%)',
-                height: '300px',
+                height: '240px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
-                fontSize: '3rem',
+                fontSize: '2.8rem',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                padding: '2rem',
+                padding: '1.5rem',
                 borderRadius: '10px 10px 0 0'
               }}>
                 🎓<br />
-                <span style={{ fontSize: '1.5rem' }}>Advocates Training</span>
+                <span style={{ fontSize: '1.4rem' }}>Advocates Training</span>
               </div>
               <div className='a-item'>
                 <p className='author'>By CSF Team</p>
@@ -86,19 +86,19 @@ const Article = () => {
             <div className='art-item' onClick={handlePowerOfWordsClick} style={{ cursor: 'pointer' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #2f931d 0%, #1d5e14 100%)',
-                height: '300px',
+                height: '240px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
-                fontSize: '3rem',
+                fontSize: '2.8rem',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                padding: '2rem',
+                padding: '1.5rem',
                 borderRadius: '10px 10px 0 0'
               }}>
                 💬<br />
-                <span style={{ fontSize: '1.5rem' }}>The Power of Words</span>
+                <span style={{ fontSize: '1.4rem' }}>The Power of Words</span>
               </div>
               <div className='a-item'>
                 <p className='author'>By Mrs. Evelyn Benjamin-Sampson</p>
