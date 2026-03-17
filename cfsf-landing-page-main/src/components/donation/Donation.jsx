@@ -4,7 +4,13 @@ import { useForm } from '../../hooks';
 import { DONATION_AMOUNTS, DONATION_TYPES } from '../../constants';
 import { SectionErrorBoundary } from '../common/ErrorBoundary';
 
+/**
+ * DonationContent Component
+ * Renders the main content of the donation section, including the informational text,
+ * impact statistics, and the interactive donation form integrated with Paystack for payments.
+ */
 const DonationContent = () => {
+  // Initialize custom form hook for managing form state, validation, and submission status
   const { formData, errors, isSubmitting, handleChange, setFieldValue, setIsSubmitting } =
     useForm(
       {
@@ -14,15 +20,18 @@ const DonationContent = () => {
         message: '',
         donationType: DONATION_TYPES.ONE_TIME,
       },
-      ['name', 'email', 'amount'] // Required fields
+      ['name', 'email', 'amount'] // Required fields for validation
     );
 
-  // Paystack configuration
+  /**
+   * Paystack configuration object
+   * Defines the parameters required by Paystack to initialize a transaction.
+   */
   const config = {
-    reference: new Date().getTime().toString(),
-    email: formData.email,
-    amount: Math.round(parseFloat(formData.amount || 0) * 100), // Amount in kobo (Paystack uses smallest currency unit)
-    publicKey: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY || 'pk_test_xxxxxxxxxxxx', // Replace with your public key
+    reference: new Date().getTime().toString(), // Generate a unique reference ID for the transaction
+    email: formData.email, // Donor's email address
+    amount: Math.round(parseFloat(formData.amount || 0) * 100), // Amount in kobo/pesewas (Paystack uses smallest currency unit, e.g., 100 = 1 GHS/USD)
+    publicKey: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY || 'pk_test_xxxxxxxxxxxx', // Fallback to provided test key if env var is missing
     metadata: {
       custom_fields: [
         {
@@ -44,61 +53,78 @@ const DonationContent = () => {
     }
   };
 
-  // Paystack hooks
+  // Initialize the Paystack payment hook with the configuration
   const initializePayment = usePaystackPayment(config);
 
-  // Success callback
+  /**
+   * Success callback function
+   * Triggered when the Paystack transaction completes successfully.
+   * @param {Object} reference - The transaction reference object returned by Paystack
+   */
   const onSuccess = (reference) => {
     console.log('Payment successful!', reference);
     alert(`Thank you ${formData.name}! Your donation of $${formData.amount} was successful. Reference: ${reference.reference}`);
 
-    // You can send this data to your backend to record the donation
+    // TODO: Send this data to your backend to record the donation
     // await donationService.recordDonation({ ...formData, reference: reference.reference });
 
-    // Reset form
+    // Reset form fields after successful donation
     setFieldValue('name', '');
     setFieldValue('email', '');
     setFieldValue('amount', '');
     setFieldValue('message', '');
-    setIsSubmitting(false);
+    setIsSubmitting(false); // Enable the submit button again
   };
 
-  // Close callback
+  /**
+   * Close callback function
+   * Triggered when the user closes the Paystack payment window before completing the transaction.
+   */
   const onClose = () => {
     console.log('Payment closed');
     alert('Payment window closed. Your donation was not completed.');
-    setIsSubmitting(false);
+    setIsSubmitting(false); // Enable the submit button again
   };
 
-  // Handle form submission
+  /**
+   * Handle form submission
+   * Validates form inputs and initiates the Paystack payment flow if successful.
+   * @param {Event} e - Form submission event
+   */
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Validate required fields
+    // Check for missing required fields
     if (!formData.name || !formData.email || !formData.amount) {
       alert('Please fill in all required fields');
       return;
     }
 
-    // Validate email
+    // Validate email format using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       alert('Please enter a valid email address');
       return;
     }
 
-    // Validate amount
+    // Ensure the donation amount is at least $1
     if (parseFloat(formData.amount) < 1) {
       alert('Minimum donation amount is $1');
       return;
     }
 
+    // Set submission state to true to disable the submit button and show loading indicator
     setIsSubmitting(true);
 
-    // Initialize Paystack payment
+    // Initialize Paystack payment modal passing success and close callbacks
     initializePayment(onSuccess, onClose);
   };
 
+  /**
+   * Handle predefined amount selection
+   * Updates the 'amount' field when a user clicks on a suggested donation amount button.
+   * @param {number} amount - The selected exact amount
+   */
   const handleAmountClick = (amount) => {
     setFieldValue('amount', amount.toString());
   };
@@ -107,6 +133,7 @@ const DonationContent = () => {
     <section className='donation' id='donation'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16'>
         <div className='donation-container'>
+          {/* Section Header */}
           <div className='donation-header'>
             <h1>Make a Difference Today</h1>
             <p>
@@ -116,6 +143,7 @@ const DonationContent = () => {
           </div>
 
           <div className='donation-content'>
+            {/* Informational Cards Column */}
             <div className='donation-info'>
               <div className='info-card'>
                 <div className='info-icon'>💚</div>
@@ -147,10 +175,12 @@ const DonationContent = () => {
               </div>
             </div>
 
+            {/* Donation Form Column */}
             <div className='donation-form-wrapper'>
               <form className='donation-form' onSubmit={handleSubmit}>
                 <h2>Donation Form</h2>
 
+                {/* Donation Type Selection */}
                 <div className='form-group'>
                   <label htmlFor='donationType'>Donation Type</label>
                   <div className='radio-group'>
@@ -177,6 +207,7 @@ const DonationContent = () => {
                   </div>
                 </div>
 
+                {/* Full Name Input */}
                 <div className='form-group'>
                   <label htmlFor='name'>Full Name *</label>
                   <input
@@ -192,6 +223,7 @@ const DonationContent = () => {
                   {errors.name && <div className='form-error'>{errors.name}</div>}
                 </div>
 
+                {/* Email Input */}
                 <div className='form-group'>
                   <label htmlFor='email'>Email Address *</label>
                   <input
@@ -207,6 +239,7 @@ const DonationContent = () => {
                   {errors.email && <div className='form-error'>{errors.email}</div>}
                 </div>
 
+                {/* Amount Input & Suggested Amounts */}
                 <div className='form-group'>
                   <label htmlFor='amount'>Donation Amount (USD) *</label>
                   <input
@@ -223,6 +256,7 @@ const DonationContent = () => {
                   />
                   {errors.amount && <div className='form-error'>{errors.amount}</div>}
 
+                  {/* Predefined Amount Buttons */}
                   <div className='amount-suggestions'>
                     {DONATION_AMOUNTS.map((amount) => (
                       <button
@@ -237,6 +271,7 @@ const DonationContent = () => {
                   </div>
                 </div>
 
+                {/* Optional Message Input */}
                 <div className='form-group'>
                   <label htmlFor='message'>Message (Optional)</label>
                   <textarea
@@ -249,6 +284,7 @@ const DonationContent = () => {
                   />
                 </div>
 
+                {/* Submit Button */}
                 <button type='submit' className='submit-btn donate-btn' disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
@@ -275,6 +311,11 @@ const DonationContent = () => {
   );
 };
 
+/**
+ * Donation Wrapper Component
+ * Wraps the DonationContent in an ErrorBoundary to gracefully handle rendering errors
+ * specific to this section without crashing the entire app.
+ */
 const Donation = () => {
   return (
     <SectionErrorBoundary sectionName='Donation Form'>
