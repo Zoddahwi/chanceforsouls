@@ -23,7 +23,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section aria-labelledby='testimonials-heading' className='bg-secondary-50 dark:bg-gray-950'>
+    <section aria-labelledby='testimonials-heading' className='bg-transparent transition-colors duration-500'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16'>
         <h2
           id='testimonials-heading'
@@ -35,7 +35,7 @@ const Testimonials = () => {
           {testimonials.map((t) => (
             <figure
               key={t.name}
-              className='rounded-2xl border border-secondary-100 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm'
+              className='rounded-2xl border border-secondary-100 dark:border-gray-800 bg-white/50 dark:bg-black/20 backdrop-blur-md p-6 shadow-sm transition-colors duration-500'
             >
               <blockquote className='text-gray-700 dark:text-gray-300'>“{t.quote}”</blockquote>
               <figcaption className='mt-4'>

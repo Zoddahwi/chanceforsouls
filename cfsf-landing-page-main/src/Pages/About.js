@@ -1,17 +1,22 @@
 import React from 'react';
+import { useAppState } from '../context';
 import Mission from '../components/about/Mission';
 import Vision from '../components/about/Vision';
 import Objectives from '../components/about/Objectives';
 import Leadership from '../components/about/Leadership';
+import LiquidGradientBg from '../components/LiquidGradientBg';
 import './About.css';
 
 export default function About() {
+  const {
+    preferences: { colorScheme },
+  } = useAppState();
+
   return (
     <main className="about-page">
       {/* Hero Section */}
       <section className='about-hero'>
-        <div className='hero-overlay'></div>
-        <div className='hero-background-pattern'></div>
+        <LiquidGradientBg scheme={colorScheme} />
         <div className='hero-content-container'>
           <div className='hero-content'>
             <div className='hero-badge'>

@@ -46,7 +46,7 @@ const AnimatedCounter = ({ value, duration = 2000 }) => {
 
 const Stats = () => {
   return (
-    <section aria-labelledby='impact-heading' className='bg-white dark:bg-gray-900'>
+    <section aria-labelledby='impact-heading' className='bg-transparent transition-colors duration-500'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16'>
         <h2
           id='impact-heading'
@@ -58,7 +58,7 @@ const Stats = () => {
           {stats.map((s) => (
             <div
               key={s.label}
-              className='rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 text-center shadow-sm'
+              className='rounded-xl border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/20 backdrop-blur-md p-6 text-center shadow-sm transition-colors duration-500'
             >
               <AnimatedCounter value={s.value} />
               <div className='mt-2 text-sm text-gray-600 dark:text-gray-300'>{s.label}</div>

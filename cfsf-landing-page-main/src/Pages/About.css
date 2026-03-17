@@ -38,7 +38,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    background: #0f172a; /* Fallback base color */
     overflow: hidden;
 }
 
@@ -238,7 +238,8 @@
     max-width: 800px;
     margin: 0 auto 4rem;
     line-height: 1.8;
-    font-weight: 400;
+    font-weight: 500; /* Increased weight for visibility */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     animation: subtitleFade 1.2s ease-out 0.6s both;
 }
 

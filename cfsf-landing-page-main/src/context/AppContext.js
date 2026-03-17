@@ -13,6 +13,7 @@ const initialState = {
   // User preferences
   preferences: {
     theme: 'light',
+    colorScheme: 1,
     language: 'en',
     reducedMotion: false,
   },
@@ -38,6 +39,7 @@ export const ACTIONS = {
 
   // Preference actions
   SET_THEME: 'SET_THEME',
+  SET_COLOR_SCHEME: 'SET_COLOR_SCHEME',
   SET_LANGUAGE: 'SET_LANGUAGE',
   SET_REDUCED_MOTION: 'SET_REDUCED_MOTION',
 
@@ -88,6 +90,12 @@ const appReducer = (state, action) => {
       return {
         ...state,
         preferences: { ...state.preferences, theme: action.payload },
+      };
+
+    case ACTIONS.SET_COLOR_SCHEME:
+      return {
+        ...state,
+        preferences: { ...state.preferences, colorScheme: action.payload },
       };
 
     case ACTIONS.SET_LANGUAGE:
@@ -151,9 +159,14 @@ export const AppProvider = ({ children }) => {
   // Persist and hydrate theme specifically for Hero dark mode only
   useEffect(() => {
     try {
-      const saved = window.localStorage.getItem('hero-theme');
-      if (saved && (saved === 'light' || saved === 'dark')) {
-        dispatch({ type: ACTIONS.SET_THEME, payload: saved });
+      const savedTheme = window.localStorage.getItem('hero-theme');
+      if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+        dispatch({ type: ACTIONS.SET_THEME, payload: savedTheme });
+      }
+      
+      const savedScheme = window.localStorage.getItem('hero-scheme');
+      if (savedScheme) {
+        dispatch({ type: ACTIONS.SET_COLOR_SCHEME, payload: parseInt(savedScheme, 10) });
       }
     } catch {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,8 +175,9 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     try {
       window.localStorage.setItem('hero-theme', state.preferences.theme);
+      window.localStorage.setItem('hero-scheme', state.preferences.colorScheme);
     } catch {}
-  }, [state.preferences.theme]);
+  }, [state.preferences.theme, state.preferences.colorScheme]);
 
   return (
     <AppStateContext.Provider value={state}>
@@ -205,6 +219,7 @@ export const actionCreators = {
   setMobileMenu: (isOpen) => ({ type: ACTIONS.SET_MOBILE_MENU, payload: isOpen }),
   setScrolled: (isScrolled) => ({ type: ACTIONS.SET_SCROLLED, payload: isScrolled }),
   setTheme: (theme) => ({ type: ACTIONS.SET_THEME, payload: theme }), // dark/light for Hero only
+  setColorScheme: (scheme) => ({ type: ACTIONS.SET_COLOR_SCHEME, payload: scheme }),
   setLanguage: (language) => ({ type: ACTIONS.SET_LANGUAGE, payload: language }),
   setReducedMotion: (reduced) => ({ type: ACTIONS.SET_REDUCED_MOTION, payload: reduced }),
   setDonationStats: (stats) => ({ type: ACTIONS.SET_DONATION_STATS, payload: stats }),

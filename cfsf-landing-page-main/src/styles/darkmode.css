@@ -16,12 +16,12 @@
 /* General Background Colors */
 .dark main,
 .dark-mode main {
-    background-color: #0f172a;
+    background-color: transparent;
 }
 
 .dark section,
 .dark-mode section {
-    background-color: #0f172a;
+    background-color: transparent;
 }
 
 /* White Sections in Dark Mode */
@@ -241,8 +241,9 @@
 /* Article/News Cards Dark Mode */
 .dark .art-item,
 .dark-mode .art-item {
-    background: #1e293b;
-    border-color: #334155;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .dark .art-item h3,
@@ -257,7 +258,7 @@
 
 .dark .a-item,
 .dark-mode .a-item {
-    background: #1e293b;
+    background: transparent;
 }
 
 /* Blog Page Dark Mode */

@@ -46,7 +46,7 @@ const AppContent = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const {
-    preferences: { theme },
+    preferences: { theme, colorScheme },
   } = useAppState();
 
   // Show loader on route change
@@ -66,14 +66,30 @@ const AppContent = () => {
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
-      document.body.style.backgroundColor = '#111827';
       document.body.style.color = '#f3f4f6';
+      
+      // Theme backgrounds based on scheme
+      if (colorScheme === 3) {
+         document.body.style.backgroundColor = '#021207'; // midnight
+      } else if (colorScheme === 4) {
+         document.body.style.backgroundColor = '#060c08'; // high contrast dark
+      } else {
+         document.body.style.backgroundColor = '#041c0e'; // brand green dark
+      }
     } else {
       document.documentElement.classList.remove('dark');
-      document.body.style.backgroundColor = '#ffffff';
       document.body.style.color = '#1f2937';
+      
+      // Light theme backgrounds
+      if (colorScheme === 1) {
+         document.body.style.backgroundColor = '#f8faf9'; // fresh light tint
+      } else if (colorScheme === 2) {
+         document.body.style.backgroundColor = '#f2fcf5'; // brand green tint
+      } else {
+         document.body.style.backgroundColor = '#ffffff';
+      }
     }
-  }, [theme]);
+  }, [theme, colorScheme]);
 
   return (
     <div className={`App ${theme === 'dark' ? 'dark-mode' : ''} min-h-screen`}>
