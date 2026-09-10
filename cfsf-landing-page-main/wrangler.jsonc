@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chanceforsouls",
+  "compatibility_date": "2026-09-10",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "build",
+    // Serve index.html for unknown paths so react-router deep links
+    // (e.g. /donate, /article/:id) work on refresh.
+    "not_found_handling": "single-page-application"
+  }
+}
