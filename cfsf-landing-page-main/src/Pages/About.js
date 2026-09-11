@@ -7,6 +7,37 @@ import Leadership from '../components/about/Leadership';
 import LiquidGradientBg from '../components/LiquidGradientBg';
 import './About.css';
 
+const CORE_VALUES = [
+  {
+    id: 'compassion',
+    icon: '❤️',
+    name: 'Compassion',
+    text: 'We lead with empathy and understanding in all our interactions.',
+    accent: '#b8524a',
+  },
+  {
+    id: 'integrity',
+    icon: '🤝',
+    name: 'Integrity',
+    text: 'We operate with transparency and accountability in everything we do.',
+    accent: '#2f931d',
+  },
+  {
+    id: 'excellence',
+    icon: '🌟',
+    name: 'Excellence',
+    text: 'We strive for the highest quality in our programs and services.',
+    accent: '#b7791f',
+  },
+  {
+    id: 'community',
+    icon: '🌍',
+    name: 'Community',
+    text: 'We believe in the power of collective action and partnership.',
+    accent: '#2c6e8f',
+  },
+];
+
 export default function About() {
   const {
     preferences: { colorScheme },
@@ -55,32 +86,32 @@ export default function About() {
 
       {/* Core Values Section */}
       <section className='core-values-section'>
-        <div className='section-container'>
-          <div className='section-header'>
-            <h2 className='section-title'>Our Core Values</h2>
-            <p className='section-subtitle'>The principles that guide our mission</p>
-          </div>
+        <div className='values-container'>
+          <header className='values-header'>
+            <span className='values-eyebrow'>What we stand for</span>
+            <h2 className='values-title'>Our Core Values</h2>
+            <p className='values-lede'>
+              Four principles shape every program we run, every partnership we build,
+              and every soul we serve.
+            </p>
+          </header>
           <div className='values-grid'>
-            <div className='value-card'>
-              <div className='value-icon'>💙</div>
-              <h3>Compassion</h3>
-              <p>We lead with empathy and understanding in all our interactions</p>
-            </div>
-            <div className='value-card'>
-              <div className='value-icon'>🤝</div>
-              <h3>Integrity</h3>
-              <p>We operate with transparency and accountability in everything we do</p>
-            </div>
-            <div className='value-card'>
-              <div className='value-icon'>🌟</div>
-              <h3>Excellence</h3>
-              <p>We strive for the highest quality in our programs and services</p>
-            </div>
-            <div className='value-card'>
-              <div className='value-icon'>🌍</div>
-              <h3>Community</h3>
-              <p>We believe in the power of collective action and partnership</p>
-            </div>
+            {CORE_VALUES.map((value, index) => (
+              <article
+                key={value.id}
+                className='value-card'
+                style={{ '--value-accent': value.accent }}
+              >
+                <span className='value-index'>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className='value-icon' aria-hidden='true'>
+                  {value.icon}
+                </span>
+                <h3 className='value-name'>{value.name}</h3>
+                <p className='value-text'>{value.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
