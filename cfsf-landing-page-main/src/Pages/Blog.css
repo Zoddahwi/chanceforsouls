@@ -434,6 +434,15 @@
     .cta-btn {
         width: 100%;
     }
+
+    /* 2rem gutters cost 64px of a 390px screen */
+    .blog-content-section {
+        padding: 3rem 1.25rem;
+    }
+
+    .featured-content {
+        padding: 1.75rem 1.25rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -451,6 +460,10 @@
 
     .featured-title {
         font-size: 1.5rem;
+    }
+
+    .blog-content-section {
+        padding: 2.5rem 1rem;
     }
 
     .section-heading {
