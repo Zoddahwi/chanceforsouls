@@ -20,7 +20,7 @@ const HeaderContent = () => {
   };
 
   return (
-    <header>
+    <header className='legacy-header'>
       <div className='container'>
         <img src='images/Logo_cfs_new.svg' alt={`${SITE_CONFIG.name} Logo`} className='logo' />
 

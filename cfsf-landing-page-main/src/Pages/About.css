@@ -468,6 +468,7 @@
 /* --- Editorial header --- */
 
 .values-header {
+    display: block;
     max-width: 620px;
     margin-bottom: 4rem;
 }

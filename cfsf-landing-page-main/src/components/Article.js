@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedCard from './shared/AnimatedCard';
+import '../styles/editorial.css';
+import './Article.css';
 
 const Article = () => {
   const navigate = useNavigate();
@@ -44,18 +46,16 @@ const Article = () => {
   ];
 
   return (
-    <article id='blog' className="py-24 sm:py-32 bg-gray-50/50 dark:bg-gray-900/50 overflow-hidden">
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10'>
+    <article id='blog' className='ed-section ed-section--paper'>
+      <div className='ed-container'>
         <div className='art-container'>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 px-4">
-            <div className="max-w-2xl">
-              <h2 className="font-heading text-primary-600 dark:text-primary-400 font-bold tracking-widest uppercase text-sm mb-4">
-                News & Events
-              </h2>
-              <h1 className="font-heading text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-[1.2]">
-                Latest from the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">Foundation</span>
-              </h1>
-            </div>
+          <div className='ed-header ed-header--wide'>
+            <span className='ed-eyebrow'>News &amp; events</span>
+            <h2 className='ed-title'>Latest from the Foundation</h2>
+            <p className='ed-lede'>
+              Outreach programmes, workshops and projects — what we have been doing
+              and what is coming next.
+            </p>
           </div>
           <div className='article-grid'>
             {articles.map((art) => (

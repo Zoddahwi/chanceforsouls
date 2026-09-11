@@ -1,53 +1,65 @@
 import React from 'react';
+import '../styles/editorial.css';
+import './Testimonials.css';
 
 const testimonials = [
   {
     name: 'Ada O.',
     role: 'Beneficiary',
+    accent: '#b8524a',
     quote:
       'The counseling sessions helped me regain confidence and reconnect with my family. I am deeply grateful.',
   },
   {
     name: 'Samuel T.',
     role: 'Community Partner',
+    accent: '#2f931d',
     quote:
       'Their outreach programs have transformed lives in our community. The team is compassionate and professional.',
   },
   {
     name: 'Lucy A.',
     role: 'Volunteer',
+    accent: '#2c6e8f',
     quote:
       'Volunteering with CFS opened my eyes to the power of empathy. The impact is real and inspiring.',
   },
 ];
 
-const Testimonials = () => {
-  return (
-    <section aria-labelledby='testimonials-heading' className='bg-transparent transition-colors duration-500'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16'>
-        <h2
-          id='testimonials-heading'
-          className='font-heading text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white'
-        >
+const Testimonials = () => (
+  <section aria-labelledby='testimonials-heading' className='ed-section ed-section--white'>
+    <div className='ed-container'>
+      <div className='ed-header'>
+        <span className='ed-eyebrow'>In their words</span>
+        <h2 id='testimonials-heading' className='ed-title'>
           Voices of Impact
         </h2>
-        <div className='mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-          {testimonials.map((t) => (
-            <figure
-              key={t.name}
-              className='rounded-2xl border border-secondary-100 dark:border-gray-800 bg-white/50 dark:bg-black/20 backdrop-blur-md p-6 shadow-sm transition-colors duration-500'
-            >
-              <blockquote className='text-gray-700 dark:text-gray-300'>“{t.quote}”</blockquote>
-              <figcaption className='mt-4'>
-                <div className='text-sm font-medium text-gray-900 dark:text-white'>{t.name}</div>
-                <div className='text-xs text-gray-500 dark:text-gray-400'>{t.role}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <p className='ed-lede'>
+          From the people who have sat in our counselling rooms, partnered with us, and
+          given their time.
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <div className='ed-grid ed-grid--3'>
+        {testimonials.map((t) => (
+          <figure
+            key={t.name}
+            className='ed-card testimonial-card-ed'
+            style={{ '--ed-accent': t.accent }}
+          >
+            <span className='testimonial-mark' aria-hidden='true'>
+              &ldquo;
+            </span>
+            <blockquote className='testimonial-quote'>{t.quote}</blockquote>
+            <figcaption className='testimonial-attribution'>
+              <span className='testimonial-name'>{t.name}</span>
+              <span className='testimonial-role'>{t.role}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Testimonials;

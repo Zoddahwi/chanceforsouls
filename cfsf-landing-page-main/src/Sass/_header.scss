@@ -1,5 +1,12 @@
 
-header {
+/*
+ * Scoped to .legacy-header, not the bare `header` element.
+ *
+ * As a global element selector this hit every <header> in the app -
+ * the Navbar and the About page's Core Values header - turning them into
+ * centred flex rows. Its only consumer is components/header.js.
+ */
+.legacy-header {
   width: 100%;
   background-color: white;
   display: flex;

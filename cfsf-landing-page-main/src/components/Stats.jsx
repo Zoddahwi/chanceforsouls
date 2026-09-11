@@ -1,10 +1,11 @@
 import React from 'react';
+import '../styles/editorial.css';
 
 const stats = [
-  { label: 'Individuals Counseled', value: '1,000+' },
-  { label: 'Community Programs', value: '50+' },
-  { label: 'Support Hotline', value: '24/7' },
-  { label: 'Workshops & Resources', value: 'Free' },
+  { label: 'Individuals Counseled', value: '1,000+', accent: '#2f931d' },
+  { label: 'Community Programs', value: '50+', accent: '#b7791f' },
+  { label: 'Support Hotline', value: '24/7', accent: '#2c6e8f' },
+  { label: 'Workshops & Resources', value: 'Free', accent: '#b8524a' },
 ];
 
 const parseTarget = (value) => {
@@ -13,61 +14,64 @@ const parseTarget = (value) => {
 };
 
 const AnimatedCounter = ({ value, duration = 2000 }) => {
-  // Handle non-numeric values like 'Free'
+  // Handle non-numeric values like 'Free' and '24/7'
   const numericTarget = parseTarget(value);
   const suffix = typeof value === 'string' && /\+$/.test(value) ? '+' : '';
+  const isPlainNumber = /^[\d,]+\+?$/.test(String(value));
   const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
-    if (!numericTarget) return; // no animation for zero/non-numeric
+    if (!numericTarget || !isPlainNumber) return undefined;
     let start;
+    let raf;
     const step = (ts) => {
       if (!start) start = ts;
-      const elapsed = ts - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.floor(progress * numericTarget);
-      setCount(current);
-      if (progress < 1) requestAnimationFrame(step);
+      const progress = Math.min((ts - start) / duration, 1);
+      setCount(Math.floor(progress * numericTarget));
+      if (progress < 1) raf = requestAnimationFrame(step);
     };
-    const raf = requestAnimationFrame(step);
+    raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [numericTarget, duration]);
+  }, [numericTarget, duration, isPlainNumber]);
 
-  if (!numericTarget) {
-    return <span className='text-2xl sm:text-3xl font-bold text-primary-600'>{value}</span>;
+  // '24/7' parses to 247, so only animate values that are purely numeric
+  if (!numericTarget || !isPlainNumber) {
+    return <span className='ed-card__figure'>{value}</span>;
   }
+
   return (
-    <span className='counter text-2xl sm:text-3xl font-bold text-primary-600'>
+    <span className='ed-card__figure counter'>
       {count.toLocaleString()}
       {suffix}
     </span>
   );
 };
 
-const Stats = () => {
-  return (
-    <section aria-labelledby='impact-heading' className='bg-transparent transition-colors duration-500'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16'>
-        <h2
-          id='impact-heading'
-          className='font-heading text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white'
-        >
+const Stats = () => (
+  <section aria-labelledby='impact-heading' className='ed-section ed-section--paper'>
+    <div className='ed-container'>
+      <div className='ed-header'>
+        <span className='ed-eyebrow'>By the numbers</span>
+        <h2 id='impact-heading' className='ed-title'>
           Our Impact
         </h2>
-        <div className='mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4'>
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className='rounded-xl border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/20 backdrop-blur-md p-6 text-center shadow-sm transition-colors duration-500'
-            >
-              <AnimatedCounter value={s.value} />
-              <div className='mt-2 text-sm text-gray-600 dark:text-gray-300'>{s.label}</div>
-            </div>
-          ))}
-        </div>
+        <p className='ed-lede'>
+          Counseling, outreach and community programmes delivered across Ghana — and
+          the reach they have had so far.
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <div className='ed-grid ed-grid--4'>
+        {stats.map((s, i) => (
+          <div key={s.label} className='ed-card' style={{ '--ed-accent': s.accent }}>
+            <span className='ed-card__index'>{String(i + 1).padStart(2, '0')}</span>
+            <AnimatedCounter value={s.value} />
+            <p className='ed-card__text'>{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Stats;

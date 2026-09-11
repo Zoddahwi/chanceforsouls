@@ -1,0 +1,15 @@
+/* Article grid overrides.
+   The legacy rule in Sass/_article.scss is `article#blog .article-grid`,
+   specificity (1,1,1) because of the id. It pins two columns at every width
+   below 1020px, leaving 167px cards on a 390px phone. These selectors
+   include the same id plus the wrapper class, (1,2,1), so they win. */
+
+article#blog .art-container .article-grid {
+    padding: 0;
+}
+
+@media (max-width: 640px) {
+    article#blog .art-container .article-grid {
+        grid-template-columns: 1fr;
+    }
+}

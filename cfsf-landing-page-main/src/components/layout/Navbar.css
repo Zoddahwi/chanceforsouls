@@ -4,13 +4,12 @@
     /*
      * display:block is load-bearing, do not remove.
      *
-     * src/Sass/_header.scss ships a global `header { display: flex;
-     * justify-content: center }` rule for the legacy (unused)
-     * components/header.js. It is imported globally by index.js via
-     * Sass/main.scss, so it lands on this <header> too and turns it into a
-     * centred flex container - which collapses .navbar-container from full
-     * width down to its content width. A class beats an element selector,
-     * so declaring display here pins it.
+     * src/Sass/_header.scss used to ship a global
+     * `header { display: flex; justify-content: center }` rule, which landed
+     * on this <header> and collapsed .navbar-container from full width down
+     * to its content width. That rule is now scoped to .legacy-header, but
+     * this stays declared so a future global element selector cannot
+     * silently break the bar again.
      */
     display: block;
     position: sticky;
