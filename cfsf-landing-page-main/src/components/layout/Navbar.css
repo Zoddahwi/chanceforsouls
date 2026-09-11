@@ -1,6 +1,18 @@
 /* Modern Navbar Styles */
 
 .modern-navbar {
+    /*
+     * display:block is load-bearing, do not remove.
+     *
+     * src/Sass/_header.scss ships a global `header { display: flex;
+     * justify-content: center }` rule for the legacy (unused)
+     * components/header.js. It is imported globally by index.js via
+     * Sass/main.scss, so it lands on this <header> too and turns it into a
+     * centred flex container - which collapses .navbar-container from full
+     * width down to its content width. A class beats an element selector,
+     * so declaring display here pins it.
+     */
+    display: block;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -51,14 +63,14 @@
 }
 
 .logo-image {
-    height: 130px;
+    height: 52px;
     width: auto;
     object-fit: contain;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modern-navbar.scrolled .logo-image {
-    height: 75px;
+    height: 36px;
 }
 
 .logo-image.logo-pop {
@@ -312,14 +324,21 @@
     background: white;
     z-index: 1002;
     transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s linear 0.3s;
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
+    overscroll-behavior: contain;
+    padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .mobile-menu-drawer.open {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s linear 0s;
 }
 
 .mobile-menu-header {
@@ -358,7 +377,9 @@
 
 .mobile-menu-content {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -520,25 +541,83 @@
 
 /* Responsive Design */
 @media (max-width: 767px) {
-    .navbar-container {
-        padding: 0 2rem !important;
+    /*
+     * Solid bar on mobile.
+     *
+     * The translucent + backdrop-filter treatment let the hero's WebGL
+     * gradient read as a hard green stripe under the bar. Dropping the
+     * filter here also means .modern-navbar is no longer a containing
+     * block for position:fixed children, which is what squashed the
+     * mobile drawer into the header box.
+     *
+     * .scrolled and .dark variants are repeated because their selectors
+     * outrank a bare .modern-navbar rule.
+     */
+    .modern-navbar,
+    .modern-navbar.scrolled {
+        background: #ffffff;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
     }
 
+    .modern-navbar.scrolled {
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .dark .modern-navbar,
+    .dark .modern-navbar.scrolled {
+        background: #111827;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .dark .modern-navbar.scrolled {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .navbar-container {
+        padding: 0 1.25rem;
+    }
+
+    /*
+     * Flex, not grid, below 768px.
+     *
+     * Only the logo and the burger render here (.desktop-nav and
+     * .desktop-actions are display:none), so the 3-column desktop track
+     * stranded the burger in the middle 1fr column. The auto margins pin
+     * both to the edges regardless of how the tracks resolve.
+     */
     .navbar-content {
-        height: 100px;
-        gap: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 76px;
+        gap: 1rem;
+    }
+
+    .navbar-logo {
+        margin-right: auto;
+        min-width: 0;
+    }
+
+    .mobile-menu-btn {
+        margin-left: auto;
+        flex: none;
     }
 
     .modern-navbar.scrolled .navbar-content {
-        height: 75px;
+        height: 64px;
     }
 
     .logo-image {
-        height: 90px;
+        height: 40px;
+        max-width: 56vw;
     }
 
     .modern-navbar.scrolled .logo-image {
-        height: 65px;
+        height: 30px;
     }
 }
 
@@ -553,11 +632,35 @@
 }
 
 @media (max-width: 480px) {
-    .donate-btn span:not(.donate-icon) {
+    .navbar-container {
+        padding: 0 1rem;
+    }
+
+    .navbar-content {
+        height: 68px;
+    }
+
+    .logo-image {
+        height: 34px;
+        max-width: 58vw;
+    }
+
+    .modern-navbar.scrolled .logo-image {
+        height: 28px;
+    }
+
+    .mobile-menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Icon-only applies to the compact bar button, never the drawer's
+       full-width one - that has room for the label. */
+    .donate-btn:not(.mobile) span:not(.donate-icon) {
         display: none;
     }
 
-    .donate-btn {
+    .donate-btn:not(.mobile) {
         padding: 0.75rem 1rem;
     }
 

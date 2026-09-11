@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useScroll } from '../../hooks/useCommon';
 import { SITE_CONFIG } from '../../constants';
@@ -52,84 +53,60 @@ const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
-  return (
-    <header className={`modern-navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className='navbar-container'>
-        <div className='navbar-content'>
-          {/* Logo */}
-          <div
-            className='navbar-logo'
-            onClick={() => {
-              setLogoAnim(true);
-              navigate('/');
-            }}
-          >
-            <img
-              src="/images/Logo_cfs_new.svg"
-              alt={`${SITE_CONFIG?.name || 'CFS'} logo`}
-              className={`logo-image ${logoAnim ? 'logo-pop' : ''}`}
-              onAnimationEnd={() => setLogoAnim(false)}
-            />
-          </div>
+  // Close the drawer on Escape and stop the page behind it from scrolling
+  React.useEffect(() => {
+    if (!open) return undefined;
 
-          {/* Desktop Navigation */}
-          <nav className='desktop-nav' aria-label='Main navigation'>
-            {navigationItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNavClick(item.path)}
-                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
 
-          {/* Desktop Actions */}
-          <div className='desktop-actions'>
-            <ThemeToggle theme={theme} setTheme={setTheme} />
-            <button
-              onClick={() => navigate('/Donate')}
-              className='donate-btn'
-            >
-              <span className='donate-icon'>💚</span>
-              <span>Donate Now</span>
-            </button>
-          </div>
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
 
-          {/* Mobile Menu Button */}
-          <button
-            className='mobile-menu-btn'
-            aria-label='Toggle menu'
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className='menu-icon'>{open ? '✖' : '☰'}</span>
-          </button>
-        </div>
-      </div>
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
 
-      {/* Mobile Menu Overlay */}
+  /*
+   * Rendered through a portal on purpose.
+   *
+   * .modern-navbar sets backdrop-filter, which makes it a containing block for
+   * position: fixed descendants. Left inside the header, the drawer's
+   * top/right/height resolve against the ~100px navbar box instead of the
+   * viewport, so it renders as a clipped sliver. Portalling to <body> puts it
+   * back in the viewport's coordinate space.
+   */
+  const mobileMenu = (
+    <>
       <div
         className={`mobile-menu-overlay ${open ? 'open' : ''}`}
         onClick={() => setOpen(false)}
-        aria-hidden="true"
+        aria-hidden='true'
       />
 
-      {/* Mobile Menu Drawer */}
-      <div className={`mobile-menu-drawer ${open ? 'open' : ''}`}>
+      <div
+        className={`mobile-menu-drawer ${open ? 'open' : ''}`}
+        role='dialog'
+        aria-modal='true'
+        aria-label='Site menu'
+        aria-hidden={!open}
+      >
         <div className='mobile-menu-header'>
           <div className='mobile-logo'>
             <img
-              src="/images/Logo_cfs_new.svg"
-              alt="CFS Logo"
-              className="drawer-logo"
+              src='/images/Logo_cfs_new.svg'
+              alt='CFS Logo'
+              className='drawer-logo'
             />
           </div>
           <button
             className='drawer-close-btn'
             onClick={() => setOpen(false)}
-            aria-label="Close menu"
+            aria-label='Close menu'
           >
             ✕
           </button>
@@ -151,9 +128,7 @@ const Navbar = () => {
           <div className='mobile-actions'>
             <ThemeToggle theme={theme} setTheme={setTheme} />
             <button
-              onClick={() => {
-                onNavClick('/Donate');
-              }}
+              onClick={() => onNavClick('/Donate')}
               className='donate-btn mobile'
             >
               <span className='donate-icon'>💚</span>
@@ -162,7 +137,71 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </header>
+    </>
+  );
+
+  return (
+    <>
+      <header className={`modern-navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <div className='navbar-container'>
+          <div className='navbar-content'>
+            {/* Logo */}
+            <div
+              className='navbar-logo'
+              onClick={() => {
+                setLogoAnim(true);
+                navigate('/');
+              }}
+            >
+              <img
+                src="/images/Logo_cfs_new.svg"
+                alt={`${SITE_CONFIG?.name || 'CFS'} logo`}
+                className={`logo-image ${logoAnim ? 'logo-pop' : ''}`}
+                onAnimationEnd={() => setLogoAnim(false)}
+              />
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className='desktop-nav' aria-label='Main navigation'>
+              {navigationItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onNavClick(item.path)}
+                  className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            {/* Desktop Actions */}
+            <div className='desktop-actions'>
+              <ThemeToggle theme={theme} setTheme={setTheme} />
+              <button
+                onClick={() => navigate('/Donate')}
+                className='donate-btn'
+              >
+                <span className='donate-icon'>💚</span>
+                <span>Donate Now</span>
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className='mobile-menu-btn'
+              aria-label='Toggle menu'
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span className='menu-icon'>{open ? '✖' : '☰'}</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {typeof document !== 'undefined'
+        && createPortal(mobileMenu, document.body)}
+    </>
   );
 };
 

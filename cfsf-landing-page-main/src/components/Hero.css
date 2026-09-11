@@ -1,0 +1,21 @@
+/* Hero Section */
+
+/*
+ * The hero's background is a full-bleed WebGL gradient (LiquidGradientBg),
+ * absolutely positioned to fill this section. Because the navbar is sticky
+ * and sits directly on top of it, the gradient's first rows read as a hard
+ * green stripe under the bar.
+ *
+ * This offset pushes the hero - and therefore the gradient - clear of the
+ * navbar so the bar ends on its own border instead of on the gradient.
+ * Section padding cannot do this: the gradient fills the padding box too.
+ */
+.hero-section {
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        margin-top: 14px;
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppState, useAppDispatch, actionCreators } from '../context/AppContext';
 import LiquidGradientBg from './LiquidGradientBg';
+import './Hero.css';
 
 const Hero = () => {
   const {
@@ -14,7 +15,7 @@ const Hero = () => {
     <div className={theme === 'dark' ? 'dark bg-gray-900' : ''}>
       <section
         id='home'
-        className='relative w-full pt-16 min-h-screen border-b-0'
+        className='hero-section relative w-full pt-16 min-h-screen border-b-0'
         style={{ overflow: 'hidden' }}
       >
         <LiquidGradientBg scheme={colorScheme} />
