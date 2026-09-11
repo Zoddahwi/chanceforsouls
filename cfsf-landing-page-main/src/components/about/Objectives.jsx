@@ -1,47 +1,63 @@
 import React from 'react';
+import '../../styles/editorial.css';
 import './AboutComponents.css';
 
 const objectives = [
   {
     title: 'Quality Education',
     description: 'Provide access to quality education and learning tools',
-    icon: '📚'
+    icon: '📚',
+    accent: '#2f931d',
   },
   {
     title: 'Mental Wellness',
     description: 'Support mental wellness through counseling and outreach',
-    icon: '🧠'
+    icon: '🧠',
+    accent: '#b8524a',
   },
   {
     title: 'Skills Training',
     description: 'Promote skills training and economic empowerment',
-    icon: '💼'
+    icon: '💼',
+    accent: '#b7791f',
   },
   {
     title: 'Community Partnerships',
     description: 'Strengthen community partnerships for sustainable impact',
-    icon: '🤝'
+    icon: '🤝',
+    accent: '#2c6e8f',
   },
 ];
 
 export default function Objectives() {
   return (
-    <section id='objectives' className='objectives-section'>
-      <div className='section-container'>
-        <div className='section-header'>
-          <h2 className='section-title'>What We Strive to Achieve</h2>
-          <p className='section-subtitle'>
-            Our strategic objectives guide every program and initiative we undertake
+    <section id='objectives' className='ed-section ed-section--white'>
+      <div className='ed-container'>
+        <div className='ed-header'>
+          <span className='ed-eyebrow'>Our objectives</span>
+          <h2 className='ed-title'>What we strive to achieve</h2>
+          <p className='ed-lede'>
+            Four strategic objectives that guide every program and initiative we undertake.
           </p>
         </div>
-        <div className='objectives-grid'>
+
+        <div className='about-objectives'>
           {objectives.map((item, idx) => (
-            <div key={idx} className='objective-card'>
-              <div className='objective-number'>{(idx + 1).toString().padStart(2, '0')}</div>
-              <div className='objective-icon'>{item.icon}</div>
-              <h3 className='objective-title'>{item.title}</h3>
-              <p className='objective-description'>{item.description}</p>
-              <div className='objective-hover-effect'></div>
+            <div
+              key={item.title}
+              className='about-objective'
+              style={{ '--ed-accent': item.accent }}
+            >
+              <span className='about-objective__num'>
+                {(idx + 1).toString().padStart(2, '0')}
+              </span>
+              <div>
+                <h3 className='about-objective__title'>
+                  <span aria-hidden='true'>{item.icon}</span>
+                  {item.title}
+                </h3>
+                <p className='about-objective__text'>{item.description}</p>
+              </div>
             </div>
           ))}
         </div>

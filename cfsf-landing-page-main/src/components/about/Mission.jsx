@@ -1,43 +1,42 @@
 import React from 'react';
+import '../../styles/editorial.css';
 import './AboutComponents.css';
+
+const highlights = [
+  'Quality Education Access',
+  'Healthcare Support',
+  'Economic Empowerment',
+];
 
 export default function Mission() {
   return (
-    <section id='mission' className='mission-section'>
-      <div className='section-container'>
-        <div className='content-grid'>
-          <div className='content-text'>
-            <h2 className='content-title'>Empowering Communities for a Brighter Future</h2>
-            <p className='content-description'>
-              To create opportunities that uplift vulnerable children, youth, and families by
-              expanding access to education, healthcare, and economic empowerment. We work with
-              communities and partners to deliver sustainable programs that change lives and build
-              brighter futures.
+    <section id='mission' className='ed-section ed-section--white'>
+      <div className='ed-container'>
+        <div className='about-split'>
+          <div className='ed-header'>
+            <span className='ed-eyebrow'>Our mission</span>
+            <h2 className='ed-title'>Empowering communities for a brighter future</h2>
+            <p className='ed-lede'>
+              To create opportunities that uplift vulnerable children, youth and families by
+              expanding access to education, healthcare and economic empowerment. We work with
+              communities and partners to deliver sustainable programs that change lives.
             </p>
-            <div className='content-highlights'>
-              <div className='highlight-item'>
-                <span className='highlight-icon'>✓</span>
-                <span>Quality Education Access</span>
-              </div>
-              <div className='highlight-item'>
-                <span className='highlight-icon'>✓</span>
-                <span>Healthcare Support</span>
-              </div>
-              <div className='highlight-item'>
-                <span className='highlight-icon'>✓</span>
-                <span>Economic Empowerment</span>
-              </div>
-            </div>
+            <ul className='about-checklist'>
+              {highlights.map((item) => (
+                <li key={item}>
+                  <span className='about-check' aria-hidden='true'>
+                    ✓
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className='content-image'>
-            <div className='image-wrapper'>
-              <img
-                src='/images/CFS_bg1.png'
-                alt='Chance For Souls mission'
-                className='main-image'
-              />
-              <div className='image-decoration'></div>
-            </div>
+
+          <div className='about-split__media'>
+            <figure className='about-figure'>
+              <img src='/images/CFS_bg1.png' alt='Chance For Souls mission' loading='lazy' />
+            </figure>
           </div>
         </div>
       </div>

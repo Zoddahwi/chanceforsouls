@@ -5,7 +5,44 @@ import Vision from '../components/about/Vision';
 import Objectives from '../components/about/Objectives';
 import Leadership from '../components/about/Leadership';
 import LiquidGradientBg from '../components/LiquidGradientBg';
+import '../styles/editorial.css';
+import '../components/CTA.css';
 import './About.css';
+
+const IMPACT_AREAS = [
+  {
+    id: 'mental-health',
+    icon: '💚',
+    title: 'Mental Health Support',
+    text: 'Professional counseling and therapy for individuals facing mental health challenges.',
+    badge: 'Transforming lives',
+    accent: '#2f931d',
+  },
+  {
+    id: 'schools',
+    icon: '🎓',
+    title: 'School Outreach',
+    text: 'Educational programs teaching students about emotional wellbeing and mental health.',
+    badge: '850+ students impacted',
+    accent: '#b7791f',
+  },
+  {
+    id: 'infrastructure',
+    icon: '🏗️',
+    title: 'Infrastructure Development',
+    text: 'Rehabilitation facilities and community bridges serving underserved areas.',
+    badge: 'Communities empowered',
+    accent: '#2c6e8f',
+  },
+  {
+    id: 'resources',
+    icon: '📚',
+    title: 'Resources & Training',
+    text: 'Books, materials and training so advocates can deliver effective support.',
+    badge: 'Knowledge shared widely',
+    accent: '#b8524a',
+  },
+];
 
 const CORE_VALUES = [
   {
@@ -86,7 +123,7 @@ export default function About() {
 
       {/* Core Values Section */}
       <section className='core-values-section'>
-        <div className='values-container'>
+        <div className='ed-container'>
           <header className='values-header'>
             <span className='values-eyebrow'>What we stand for</span>
             <h2 className='values-title'>Our Core Values</h2>
@@ -122,84 +159,32 @@ export default function About() {
       <Objectives />
 
       {/* Impact Section */}
-      <section className='impact-section'>
-        <div className='section-container'>
-          <div className='section-header'>
-            <h2 className='section-title'>Our Impact</h2>
-            <p className='section-subtitle'>Making a difference in Ghana and beyond</p>
+      <section className='ed-section ed-section--paper'>
+        <div className='ed-container'>
+          <div className='ed-header'>
+            <span className='ed-eyebrow'>Our impact</span>
+            <h2 className='ed-title'>Making a difference in Ghana and beyond</h2>
+            <p className='ed-lede'>
+              Four areas where our programmes are already changing outcomes for the
+              people we serve.
+            </p>
           </div>
-          <div className='impact-cards-grid'>
-            <div className='impact-card-modern'>
-              <div className='card-top-border'></div>
-              <div className='card-icon-wrapper'>
-                <div className='icon-circle'>
-                  <span className='card-emoji'>💚</span>
-                </div>
-              </div>
-              <div className='card-content'>
-                <h3 className='card-title'>Mental Health Support</h3>
-                <p className='card-description'>
-                  Professional counseling and therapy services for individuals struggling with mental health challenges.
-                </p>
-                <div className='card-badge'>
-                  <span className='badge-text'>Transforming Lives</span>
-                </div>
-              </div>
-            </div>
 
-            <div className='impact-card-modern'>
-              <div className='card-top-border'></div>
-              <div className='card-icon-wrapper'>
-                <div className='icon-circle'>
-                  <span className='card-emoji'>🎓</span>
-                </div>
-              </div>
-              <div className='card-content'>
-                <h3 className='card-title'>School Outreach</h3>
-                <p className='card-description'>
-                  Educational programs teaching students about emotional wellbeing and mental health awareness.
-                </p>
-                <div className='card-badge highlight'>
-                  <span className='badge-text'>850+ Students Impacted</span>
-                </div>
-              </div>
-            </div>
-
-            <div className='impact-card-modern'>
-              <div className='card-top-border'></div>
-              <div className='card-icon-wrapper'>
-                <div className='icon-circle'>
-                  <span className='card-emoji'>🏗️</span>
-                </div>
-              </div>
-              <div className='card-content'>
-                <h3 className='card-title'>Infrastructure Development</h3>
-                <p className='card-description'>
-                  Building rehabilitation facilities and community bridges to serve underserved areas.
-                </p>
-                <div className='card-badge'>
-                  <span className='badge-text'>Communities Empowered</span>
-                </div>
-              </div>
-            </div>
-
-            <div className='impact-card-modern'>
-              <div className='card-top-border'></div>
-              <div className='card-icon-wrapper'>
-                <div className='icon-circle'>
-                  <span className='card-emoji'>📚</span>
-                </div>
-              </div>
-              <div className='card-content'>
-                <h3 className='card-title'>Resources & Training</h3>
-                <p className='card-description'>
-                  Providing books, materials, and training for advocates to deliver effective support.
-                </p>
-                <div className='card-badge'>
-                  <span className='badge-text'>Knowledge Shared Widely</span>
-                </div>
-              </div>
-            </div>
+          <div className='ed-grid ed-grid--2 impact-rows'>
+            {IMPACT_AREAS.map((area) => (
+              <article
+                key={area.id}
+                className='ed-card impact-row'
+                style={{ '--ed-accent': area.accent }}
+              >
+                <span className='ed-card__icon' aria-hidden='true'>
+                  {area.icon}
+                </span>
+                <h3 className='ed-card__title'>{area.title}</h3>
+                <p className='ed-card__text'>{area.text}</p>
+                <span className='impact-badge-ed'>{area.badge}</span>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -208,13 +193,24 @@ export default function About() {
       <Leadership />
 
       {/* Call to Action */}
-      <section className='cta-section'>
-        <div className='cta-content'>
-          <h2>Join Us in Our Mission</h2>
-          <p>Together, we can create lasting change and give every soul a chance to thrive</p>
-          <div className='cta-buttons'>
-            <a href='/Donate' className='cta-btn primary'>Donate Now</a>
-            <a href='/ContactUs' className='cta-btn secondary'>Get Involved</a>
+      <section className='ed-section ed-section--white'>
+        <div className='ed-container'>
+          <div className='cta-band'>
+            <div>
+              <span className='cta-eyebrow'>Join us</span>
+              <h2 className='cta-title'>Join us in our mission</h2>
+              <p className='cta-text'>
+                Together, we can create lasting change and give every soul a chance to thrive.
+              </p>
+            </div>
+            <div className='cta-actions'>
+              <a href='/Donate' className='cta-primary'>
+                Donate Now
+              </a>
+              <a href='/ContactUs' className='cta-secondary'>
+                Get Involved
+              </a>
+            </div>
           </div>
         </div>
       </section>
