@@ -6,16 +6,11 @@
  * and sits directly on top of it, the gradient's first rows read as a hard
  * green stripe under the bar.
  *
- * This offset pushes the hero - and therefore the gradient - clear of the
- * navbar so the bar ends on its own border instead of on the gradient.
- * Section padding cannot do this: the gradient fills the padding box too.
+ * The navbar is solid below 768px and carries its own bottom border, so
+ * the hero now sits flush against it - no offset needed. Kept as an
+ * explicit 0 because section padding cannot create that gap anyway: the
+ * gradient fills the padding box too.
  */
 .hero-section {
-    margin-top: 20px;
-}
-
-@media (max-width: 767px) {
-    .hero-section {
-        margin-top: 14px;
-    }
+    margin-top: 0;
 }

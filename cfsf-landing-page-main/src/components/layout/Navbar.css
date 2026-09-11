@@ -668,3 +668,198 @@
         max-width: none;
     }
 }
+
+/* ============================================
+   DESKTOP BAR - EDITORIAL
+   ============================================
+   Matches src/styles/editorial.css: solid ground, hairline rules, 6px
+   radii, flat brand green. Everything is scoped under .modern-navbar
+   because .donate-btn and .theme-toggle-btn are shared with the donation
+   forms, the Hero and the drawer.
+   ============================================ */
+
+@media (min-width: 768px) {
+
+    .modern-navbar,
+    .modern-navbar.scrolled {
+        background: #ffffff;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .modern-navbar.scrolled {
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+
+    .navbar-content {
+        height: 84px;
+        gap: 2rem;
+    }
+
+    .modern-navbar.scrolled .navbar-content {
+        height: 68px;
+    }
+
+    .logo-image {
+        height: 44px;
+    }
+
+    .modern-navbar.scrolled .logo-image {
+        height: 36px;
+    }
+
+    /* Nav links: an underline rule, not a pill */
+    .modern-navbar .nav-link {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.975rem;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        color: #475569;
+        padding: 0.5rem 0;
+        margin: 0 0.875rem;
+        border-radius: 0;
+        transition: color 0.25s ease;
+    }
+
+    .modern-navbar .nav-link::after {
+        bottom: -2px;
+        height: 2px;
+        background: var(--primary-green, #2f931d);
+        border-radius: 0;
+    }
+
+    .modern-navbar .nav-link:hover {
+        color: #0f172a;
+        background: none;
+        transform: none;
+    }
+
+    .modern-navbar .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .modern-navbar .nav-link.active {
+        color: #0f172a;
+        background: none;
+        font-weight: 700;
+    }
+
+    .modern-navbar .nav-link.active::after {
+        width: 100%;
+        background: var(--primary-green, #2f931d);
+    }
+
+    /* Theme toggle: hairline, square-ish */
+    .modern-navbar .theme-toggle-btn {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.5rem 0.875rem;
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        border-radius: 6px;
+        background: transparent;
+        backdrop-filter: none;
+        color: #475569;
+    }
+
+    .modern-navbar .theme-toggle-btn:hover {
+        border-color: rgba(15, 23, 42, 0.32);
+        background: rgba(15, 23, 42, 0.04);
+        color: #0f172a;
+        transform: none;
+    }
+
+    .modern-navbar .theme-toggle-btn:hover .theme-icon {
+        transform: none;
+    }
+
+    /* Donate: flat brand green, matching .ed-btn--primary */
+    .modern-navbar .donate-btn {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.975rem;
+        font-weight: 700;
+        padding: 0.7rem 1.375rem;
+        background: var(--primary-green, #2f931d);
+        border: 1px solid var(--primary-green, #2f931d);
+        border-radius: 6px;
+        box-shadow: none;
+        transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .modern-navbar .donate-btn:hover {
+        background: #257a17;
+        border-color: #257a17;
+        box-shadow: none;
+        transform: translateY(-2px);
+    }
+
+    .modern-navbar .donate-icon {
+        display: none;
+    }
+
+    .desktop-actions {
+        gap: 0.75rem;
+    }
+}
+
+/* Dark mode for the desktop bar */
+@media (min-width: 768px) {
+
+    .dark .modern-navbar,
+    .dark .modern-navbar.scrolled {
+        background: #111827;
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .dark .modern-navbar .nav-link {
+        color: #94a3b8;
+    }
+
+    .dark .modern-navbar .nav-link:hover,
+    .dark .modern-navbar .nav-link.active {
+        color: #f8fafc;
+    }
+
+    .dark .modern-navbar .theme-toggle-btn {
+        border-color: rgba(255, 255, 255, 0.18);
+        color: #cbd5e1;
+    }
+
+    .dark .modern-navbar .theme-toggle-btn:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.06);
+        color: #f8fafc;
+    }
+}
+
+
+/* The drawer is portaled to <body>, so it sits outside .modern-navbar and
+   none of the desktop rules above reach it. Match the flat treatment. */
+.mobile-menu-drawer .donate-btn {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    background: var(--primary-green, #2f931d);
+    border: 1px solid var(--primary-green, #2f931d);
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.mobile-menu-drawer .donate-btn:hover {
+    background: #257a17;
+    border-color: #257a17;
+    box-shadow: none;
+    transform: none;
+}
+
+.mobile-menu-drawer .theme-toggle-btn {
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    border-radius: 6px;
+    background: transparent;
+    backdrop-filter: none;
+}
+
+.dark .mobile-menu-drawer .theme-toggle-btn {
+    border-color: rgba(255, 255, 255, 0.18);
+}
